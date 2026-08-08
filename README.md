@@ -42,6 +42,10 @@ Below is a complete log of all modifications made to the base touchHLE engine to
 - **The Bug**: The tournament arena required a 24-hour real-time wait between battles.
 - **The Fix**: Hex-patched the game's executable (`DragonIsland`) inside the `.ipa` to overwrite the hardcoded 24-hour floating-point constant (`86400.0`) with 5 seconds (`5.0`). The tournament now refreshes instantly.
 
+### 10. Infinite Abyss
+- **The Feature**: The Abyss (Dungeon 15b) had a finite limit.
+- **The Fix**: Patched the game data to massively expand the Abyss floor limit to 2,147,483,647 (effectively infinite), allowing for true endless dungeon scaling.
+
 ## Setup & Usage
 
 1. Extract the contents.
