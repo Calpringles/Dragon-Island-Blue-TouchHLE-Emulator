@@ -20,6 +20,7 @@ targets:
         - "-all_load"
         - "$(SRCROOT)/../touchHLE_src/target/aarch64-apple-ios/release/libtouchHLE.a"
         - "-lc++"
+        - "-liconv"
         - "-framework UIKit"
         - "-framework OpenGLES"
         - "-framework CoreGraphics"
@@ -30,6 +31,8 @@ targets:
         - "-framework QuartzCore"
         - "-framework GameController"
         - "-framework CoreHaptics"
+        - "-framework CoreBluetooth"
+        - "-framework CoreMotion"
       ENABLE_BITCODE: NO
       DEAD_CODE_STRIPPING: NO
       CODE_SIGN_IDENTITY: "Apple Development"
