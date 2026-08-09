@@ -185,6 +185,26 @@ pub fn main<T: Iterator<Item = String>>(mut args: T) -> Result<(), String> {
         }
     }
 
+    #[cfg(target_os = "ios")]
+    {
+        if bundle_path.is_none() {
+            if let Ok(exe_path) = std::env::current_exe() {
+                if let Some(app_bundle) = exe_path.parent() {
+                    let apps_dir = app_bundle.join("touchHLE_apps");
+                    if let Ok(entries) = std::fs::read_dir(&apps_dir) {
+                        for entry in entries.flatten() {
+                            if entry.path().extension().map_or(false, |ext| ext == "ipa") {
+                                log!("Found bundled game: {}", entry.path().display());
+                                bundle_path = Some(entry.path());
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     if options.dumping_options.symbols {
         let mut file = std::fs::File::create(&options.dumping_file).map_err(|e| e.to_string())?;
         dyld::Dyld::dump_host_symbols(&mut file).unwrap();
