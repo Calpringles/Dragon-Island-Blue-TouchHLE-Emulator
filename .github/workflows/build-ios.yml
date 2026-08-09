@@ -89,6 +89,9 @@ jobs:
         cp -R $GITHUB_WORKSPACE/touchHLE_fonts Payload/touchHLE.app/
         cp $GITHUB_WORKSPACE/touchHLE_src/touchHLE_default_options.txt Payload/touchHLE.app/
         
+        # Rename all dylibs to .bin to avoid iOS Code Signing architecture validation failures
+        find Payload/touchHLE.app/touchHLE_dylibs -type f -name "*.dylib" -exec mv {} {}.bin \;
+        
         # Create the touchHLE_apps folder inside the app bundle so touchHLE automatically finds it
         mkdir -p Payload/touchHLE.app/touchHLE_apps
         

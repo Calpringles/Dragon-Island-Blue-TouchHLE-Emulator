@@ -61,11 +61,19 @@ pub struct ResourceFile {
 }
 impl ResourceFile {
     pub fn open(path: &str) -> Result<Self, String> {
+        let mut path_str = path.to_string();
+        #[cfg(target_os = "ios")]
+        {
+            if path_str.starts_with(DYLIBS_DIR) && path_str.ends_with(".dylib") {
+                path_str.push_str(".bin");
+            }
+        }
+        
         Ok(Self {
             // On Android, these resources are included as "assets" within the
             // APK. We access them via SDL2's wrapper of Android's assets API.
             #[cfg(target_os = "android")]
-            file: sdl2::rwops::RWops::from_file(path, "r")?,
+            file: sdl2::rwops::RWops::from_file(&path_str, "r")?,
 
             // On other OSes, resources are accessed as ordinary files.
             #[cfg(not(target_os = "android"))]
@@ -75,7 +83,7 @@ impl ResourceFile {
                 #[cfg(not(target_os = "ios"))]
                 let base_path = get_macos_bundled_resources_path();
                 // When not in a bundle, look in the current directory.
-                let path = base_path.as_deref().unwrap_or(Path::new(".")).join(path);
+                let path = base_path.as_deref().unwrap_or(Path::new(".")).join(&path_str);
                 std::fs::File::open(path).map_err(|e| e.to_string())?
             },
         })
