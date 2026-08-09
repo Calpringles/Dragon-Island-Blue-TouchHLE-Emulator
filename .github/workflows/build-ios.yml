@@ -30,6 +30,7 @@ jobs:
         echo "\"$CMAKE_BIN\" \"\$@\" -DCMAKE_POLICY_VERSION_MINIMUM=3.5" >> $HOME/bin/cmake
         chmod +x $HOME/bin/cmake
         export PATH="$HOME/bin:$PATH"
+        export CMAKE="$HOME/bin/cmake"
         
         cd touchHLE_src
         export CMAKE_TOOLCHAIN_FILE="../ios/ios_toolchain.cmake"
