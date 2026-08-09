@@ -57,6 +57,8 @@ jobs:
       run: |
         cd ios
         xcodegen generate
+        sed -i '' 's/objectVersion = 77;/objectVersion = 56;/g' touchHLE.xcodeproj/project.pbxproj
+        sed -i '' 's/LastUpgradeCheck = 1600;/LastUpgradeCheck = 1540;/g' touchHLE.xcodeproj/project.pbxproj
 
     - name: Build Xcode Project (Unsigned)
       run: |
