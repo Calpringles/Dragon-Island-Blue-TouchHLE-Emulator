@@ -70,6 +70,9 @@ impl ResourceFile {
             // On other OSes, resources are accessed as ordinary files.
             #[cfg(not(target_os = "android"))]
             file: {
+                #[cfg(target_os = "ios")]
+                let base_path = std::env::current_exe().ok().and_then(|p| p.parent().map(|p| p.to_path_buf()));
+                #[cfg(not(target_os = "ios"))]
                 let base_path = get_macos_bundled_resources_path();
                 // When not in a bundle, look in the current directory.
                 let path = base_path.as_deref().unwrap_or(Path::new(".")).join(path);

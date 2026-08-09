@@ -84,6 +84,11 @@ jobs:
         echo "Contents of touchHLE.app:"
         ls -la Payload/touchHLE.app/
         
+        # Copy necessary resources into the bundle
+        cp -R $GITHUB_WORKSPACE/touchHLE_dylibs Payload/touchHLE.app/
+        cp -R $GITHUB_WORKSPACE/touchHLE_fonts Payload/touchHLE.app/
+        cp $GITHUB_WORKSPACE/touchHLE_src/touchHLE_default_options.txt Payload/touchHLE.app/
+        
         # Create the touchHLE_apps folder inside the app bundle so touchHLE automatically finds it
         mkdir -p Payload/touchHLE.app/touchHLE_apps
         
