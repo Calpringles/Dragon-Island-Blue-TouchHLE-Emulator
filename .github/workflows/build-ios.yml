@@ -8,6 +8,8 @@ on:
 jobs:
   build-ios:
     runs-on: macos-14
+    env:
+      IPHONEOS_DEPLOYMENT_TARGET: "14.0"
     
     steps:
     - uses: actions/checkout@v4
