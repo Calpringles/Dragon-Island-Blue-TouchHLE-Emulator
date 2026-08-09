@@ -33,7 +33,7 @@ jobs:
         export CMAKE="$HOME/bin/cmake"
         
         cd touchHLE_src
-        export CMAKE_TOOLCHAIN_FILE="../ios/ios_toolchain.cmake"
+        export CMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/ios/ios_toolchain.cmake"
         cargo build --lib --target aarch64-apple-ios --release
 
     - name: Generate Xcode Project
