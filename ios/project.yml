@@ -16,6 +16,8 @@ targets:
         - "$(SRCROOT)/../touchHLE_src/target/aarch64-apple-ios/release"
         - "$(SRCROOT)/../touchHLE_src/vendor/SDL2/ios/lib"
       OTHER_LDFLAGS:
+        - "-ObjC"
+        - "-all_load"
         - "-ltouchHLE"
         - "-lc++"
         - "-framework UIKit"
@@ -29,7 +31,7 @@ targets:
         - "-framework GameController"
         - "-framework CoreHaptics"
       ENABLE_BITCODE: NO
-      DEAD_CODE_STRIPPING: YES
+      DEAD_CODE_STRIPPING: NO
       CODE_SIGN_IDENTITY: "Apple Development"
       CODE_SIGN_STYLE: Automatic
       DEVELOPMENT_TEAM: "" # Will be signed via fastlane or ad-hoc for unsigned ipa
