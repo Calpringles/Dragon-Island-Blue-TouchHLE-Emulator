@@ -104,6 +104,23 @@ pub fn main() {
     if std::env::var("CARGO_CFG_TARGET_OS").unwrap() == "windows" {
         // Rust removed link to advapi32 here https://github.com/rust-lang/rust/pull/138233
         // but sdl2 still depends on it
-        println!("cargo::rustc-link-lib=advapi32")
+        println!("cargo:rustc-link-lib=advapi32");
+    }
+
+    if std::env::var("CARGO_CFG_TARGET_OS").unwrap() == "ios" {
+        println!("cargo:rustc-link-lib=framework=Foundation");
+        println!("cargo:rustc-link-lib=framework=UIKit");
+        println!("cargo:rustc-link-lib=framework=OpenGLES");
+        println!("cargo:rustc-link-lib=framework=QuartzCore");
+        println!("cargo:rustc-link-lib=framework=CoreAudio");
+        println!("cargo:rustc-link-lib=framework=CoreBluetooth");
+        println!("cargo:rustc-link-lib=framework=CoreHaptics");
+        println!("cargo:rustc-link-lib=framework=CoreGraphics");
+        println!("cargo:rustc-link-lib=framework=AVFoundation");
+        println!("cargo:rustc-link-lib=framework=Metal");
+        println!("cargo:rustc-link-lib=framework=GameController");
+        println!("cargo:rustc-link-lib=framework=CoreMotion");
+        println!("cargo:rustc-link-lib=dylib=objc");
+        println!("cargo:rustc-link-lib=dylib=c++");
     }
 }
