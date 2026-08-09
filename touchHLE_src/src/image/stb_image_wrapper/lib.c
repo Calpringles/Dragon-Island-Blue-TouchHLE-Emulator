@@ -9,4 +9,5 @@
 #define STBI_ONLY_BMP
 #define STBI_ONLY_GIF
 #define STBI_NO_STDIO
+#define STBI_NO_THREAD_LOCALS
 #include "../../../vendor/stb/stb_image.h"
