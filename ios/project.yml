@@ -1,6 +1,7 @@
 name: touchHLE
 options:
   bundleIdPrefix: com.touchhle
+  xcodeVersion: "15.4"
 targets:
   touchHLE:
     type: application
