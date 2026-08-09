@@ -23,6 +23,14 @@ jobs:
 
     - name: Build touchHLE core for iOS
       run: |
+        # Create a CMake wrapper to inject the policy workaround
+        CMAKE_BIN=$(which cmake)
+        mkdir -p $HOME/bin
+        echo '#!/bin/bash' > $HOME/bin/cmake
+        echo "\"$CMAKE_BIN\" \"\$@\" -DCMAKE_POLICY_VERSION_MINIMUM=3.5" >> $HOME/bin/cmake
+        chmod +x $HOME/bin/cmake
+        export PATH="$HOME/bin:$PATH"
+        
         cd touchHLE_src
         export CMAKE_TOOLCHAIN_FILE="../ios/ios_toolchain.cmake"
         cargo build --lib --target aarch64-apple-ios --release
