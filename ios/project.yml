@@ -18,7 +18,7 @@ targets:
       OTHER_LDFLAGS:
         - "-ObjC"
         - "-all_load"
-        - "-ltouchHLE"
+        - "$(SRCROOT)/../touchHLE_src/target/aarch64-apple-ios/release/libtouchHLE.a"
         - "-lc++"
         - "-framework UIKit"
         - "-framework OpenGLES"
