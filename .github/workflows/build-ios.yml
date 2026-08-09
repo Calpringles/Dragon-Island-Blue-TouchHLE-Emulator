@@ -88,9 +88,9 @@ jobs:
         mkdir -p Payload/touchHLE.app/touchHLE_apps
         
         # If the user uploaded the game IPA to the root of the repository, bundle it!
-        if ls ../../../*.ipa 1> /dev/null 2>&1; then
+        if ls $GITHUB_WORKSPACE/*.ipa 1> /dev/null 2>&1; then
           echo "Found a game IPA! Bundling it inside touchHLE_apps..."
-          cp ../../../*.ipa Payload/touchHLE.app/touchHLE_apps/
+          cp $GITHUB_WORKSPACE/*.ipa Payload/touchHLE.app/touchHLE_apps/
         else
           echo "No game IPA found in the repository root. You will need to sideload it manually or upload it to the repo."
         fi
