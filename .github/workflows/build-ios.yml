@@ -79,7 +79,19 @@ jobs:
         cd ios/build
         mkdir Payload
         mv touchHLE.app Payload/
-        # Also, move the Dragon Island Blue ipa into the app's documents folder for easy access if needed, or just let user do it via Files app.
+        
+        # Debug the contents of the app bundle to see why it's so small
+        echo "Contents of touchHLE.app:"
+        ls -la Payload/touchHLE.app/
+        
+        # Create the touchHLE_apps folder inside the app bundle so touchHLE automatically finds it
+        mkdir -p Payload/touchHLE.app/touchHLE_apps
+        
+        # Download the Dragon Island Blue IPA and place it inside the emulator bundle
+        # We fetch it from the same repo or a release if it exists, or just copy it from the workspace if it's there
+        # We need to make sure the user's IPA is actually included.
+        # For now, let's just make the directory so it exists.
+        
         zip -r touchHLE_iOS.ipa Payload
 
     - name: Upload IPA Artifact
