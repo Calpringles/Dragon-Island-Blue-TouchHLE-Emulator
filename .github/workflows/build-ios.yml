@@ -32,6 +32,9 @@ jobs:
         export PATH="$HOME/bin:$PATH"
         export CMAKE="$HOME/bin/cmake"
         
+        # Tell cmake-rs the exact path to the iOS SDK so it doesn't pass "/"
+        export SDKROOT=$(xcrun --sdk iphoneos --show-sdk-path)
+        
         cd touchHLE_src
         export CMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/ios/ios_toolchain.cmake"
         cargo build --lib --target aarch64-apple-ios --release
