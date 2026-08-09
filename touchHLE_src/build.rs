@@ -113,6 +113,7 @@ pub fn main() {
         println!("cargo:rustc-link-lib=framework=OpenGLES");
         println!("cargo:rustc-link-lib=framework=QuartzCore");
         println!("cargo:rustc-link-lib=framework=CoreAudio");
+        println!("cargo:rustc-link-lib=framework=AudioToolbox");
         println!("cargo:rustc-link-lib=framework=CoreBluetooth");
         println!("cargo:rustc-link-lib=framework=CoreHaptics");
         println!("cargo:rustc-link-lib=framework=CoreGraphics");
