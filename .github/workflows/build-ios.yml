@@ -26,18 +26,18 @@ jobs:
         # Create a CMake wrapper to inject the policy workaround and fix sysroot
         CMAKE_BIN=$(which cmake)
         mkdir -p $HOME/bin
-        cat << 'EOF' > $HOME/bin/cmake
+        cat << EOF > $HOME/bin/cmake
         #!/bin/bash
-        SDKROOT=$(xcrun --sdk iphoneos --show-sdk-path)
+        SDKROOT=\$(xcrun --sdk iphoneos --show-sdk-path)
         args=()
-        for arg in "$@"; do
-            if [[ "$arg" == "-DCMAKE_OSX_SYSROOT=/" ]]; then
-                args+=("-DCMAKE_OSX_SYSROOT=$SDKROOT")
+        for arg in "\$@"; do
+            if [[ "\$arg" == "-DCMAKE_OSX_SYSROOT=/" ]]; then
+                args+=("-DCMAKE_OSX_SYSROOT=\$SDKROOT")
             else
-                args+=("$arg")
+                args+=("\$arg")
             fi
         done
-        "$CMAKE_BIN" "${args[@]}" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+        "$CMAKE_BIN" "\${args[@]}" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
         EOF
         chmod +x $HOME/bin/cmake
         export PATH="$HOME/bin:$PATH"
