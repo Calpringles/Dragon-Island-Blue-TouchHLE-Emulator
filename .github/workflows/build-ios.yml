@@ -37,7 +37,11 @@ jobs:
                 args+=("\$arg")
             fi
         done
-        "$CMAKE_BIN" "\${args[@]}" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+        if [[ "\$1" == "--build" ]]; then
+            "$CMAKE_BIN" "\${args[@]}"
+        else
+            "$CMAKE_BIN" "\${args[@]}" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+        fi
         EOF
         chmod +x $HOME/bin/cmake
         export PATH="$HOME/bin:$PATH"
