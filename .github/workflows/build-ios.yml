@@ -25,7 +25,7 @@ jobs:
       run: |
         cd touchHLE_src
         export CMAKE_TOOLCHAIN_FILE="../ios/ios_toolchain.cmake"
-        cargo build --target aarch64-apple-ios --release
+        cargo build --lib --target aarch64-apple-ios --release
 
     - name: Generate Xcode Project
       run: |
