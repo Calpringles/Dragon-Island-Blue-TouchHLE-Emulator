@@ -23,17 +23,25 @@ jobs:
 
     - name: Build touchHLE core for iOS
       run: |
-        # Create a CMake wrapper to inject the policy workaround
+        # Create a CMake wrapper to inject the policy workaround and fix sysroot
         CMAKE_BIN=$(which cmake)
         mkdir -p $HOME/bin
-        echo '#!/bin/bash' > $HOME/bin/cmake
-        echo "\"$CMAKE_BIN\" \"\$@\" -DCMAKE_POLICY_VERSION_MINIMUM=3.5" >> $HOME/bin/cmake
+        cat << 'EOF' > $HOME/bin/cmake
+        #!/bin/bash
+        SDKROOT=$(xcrun --sdk iphoneos --show-sdk-path)
+        args=()
+        for arg in "$@"; do
+            if [[ "$arg" == "-DCMAKE_OSX_SYSROOT=/" ]]; then
+                args+=("-DCMAKE_OSX_SYSROOT=$SDKROOT")
+            else
+                args+=("$arg")
+            fi
+        done
+        "$CMAKE_BIN" "${args[@]}" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+        EOF
         chmod +x $HOME/bin/cmake
         export PATH="$HOME/bin:$PATH"
         export CMAKE="$HOME/bin/cmake"
-        
-        # Tell cmake-rs the exact path to the iOS SDK so it doesn't pass "/"
-        export SDKROOT=$(xcrun --sdk iphoneos --show-sdk-path)
         
         cd touchHLE_src
         export CMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/ios/ios_toolchain.cmake"
