@@ -66,7 +66,7 @@ pub use touchHLE_version::*;
 
 /// This is the true entry point on Android (SDLActivity calls it after
 /// initialization). On other platforms the true entry point is in src/bin.rs.
-#[cfg(target_os = "android")]
+#[cfg(any(target_os = "android", target_os = "ios"))]
 #[no_mangle]
 pub extern "C" fn SDL_main(
     _argc: std::ffi::c_int,
