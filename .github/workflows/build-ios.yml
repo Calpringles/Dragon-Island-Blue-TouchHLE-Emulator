@@ -87,10 +87,13 @@ jobs:
         # Create the touchHLE_apps folder inside the app bundle so touchHLE automatically finds it
         mkdir -p Payload/touchHLE.app/touchHLE_apps
         
-        # Download the Dragon Island Blue IPA and place it inside the emulator bundle
-        # We fetch it from the same repo or a release if it exists, or just copy it from the workspace if it's there
-        # We need to make sure the user's IPA is actually included.
-        # For now, let's just make the directory so it exists.
+        # If the user uploaded the game IPA to the root of the repository, bundle it!
+        if ls ../../../*.ipa 1> /dev/null 2>&1; then
+          echo "Found a game IPA! Bundling it inside touchHLE_apps..."
+          cp ../../../*.ipa Payload/touchHLE.app/touchHLE_apps/
+        else
+          echo "No game IPA found in the repository root. You will need to sideload it manually or upload it to the repo."
+        fi
         
         zip -r touchHLE_iOS.ipa Payload
 
