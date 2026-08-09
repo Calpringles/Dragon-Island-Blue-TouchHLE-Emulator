@@ -19,7 +19,7 @@
 
 std::vector<DriverIfacePtr> DriverList;
 
-thread_local DriverIface *ThreadCtxDriver;
+ DriverIface *ThreadCtxDriver;
 
 enum LogLevel LogLevel = LogLevel_Error;
 FILE *LogFile;

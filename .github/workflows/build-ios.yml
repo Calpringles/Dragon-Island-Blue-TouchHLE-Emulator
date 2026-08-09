@@ -19,7 +19,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        brew install xcodegen cmake ninja
+        brew install xcodegen cmake ninja boost
 
     - name: Build touchHLE core for iOS
       run: |
@@ -40,7 +40,7 @@ jobs:
         if [[ "\$1" == "--build" ]]; then
             "$CMAKE_BIN" "\${args[@]}"
         else
-            "$CMAKE_BIN" "\${args[@]}" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+            "$CMAKE_BIN" "\${args[@]}" -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBoost_INCLUDE_DIR=/opt/homebrew/include
         fi
         EOF
         chmod +x $HOME/bin/cmake

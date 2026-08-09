@@ -175,10 +175,10 @@ using DriverIfacePtr = std::unique_ptr<DriverIface>;
 
 extern std::vector<DriverIfacePtr> DriverList;
 
-extern thread_local DriverIface *ThreadCtxDriver;
+extern  DriverIface *ThreadCtxDriver;
 extern std::atomic<DriverIface*> CurrentCtxDriver;
 
-/* HACK: MinGW generates bad code when accessing an extern thread_local object.
+/* HACK: MinGW generates bad code when accessing an extern  object.
  * Add a wrapper function for it that only accesses it where it's defined.
  */
 #ifdef __MINGW32__
